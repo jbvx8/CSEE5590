@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+	font-family: "Lato";
+}
+
+#green-text {
+	color: green;
+}
+
+#blue-text {
+	color: blue;
+}
+
+#orange-text {
+	color: orange;
+}
+
+#purple-text {
+	color: purple;
+}
+
+h1 {
+	background-color: grey;
+}
