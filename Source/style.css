@@ -20,6 +20,15 @@
 	color: purple;
 }
 
+#red-text {
+	color: red;
+}
+
 h1 {
 	background-color: grey;
+}
+
+img	{
+	height: 300px;
+	width: 400px;
 }
