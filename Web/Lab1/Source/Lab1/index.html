@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <img src="resources/umkc-with-name-two-color-digital-only.png" id="umkc-logo">
+    <br><br>
+    <div class="jumbotron">
+        <h1>Welcome to Course Registration!</h1>
+        <br><br>
+        <div>
+            <form action="" class="form-inline justify-content-center">
+                <select name="" id="select-career" class="custom-select my-1 mr-sm-2">
+                    <option selected disabled>Course Career</option>
+                    <option value="undergraduate">Undergraduate</option>
+                    <option value="graduate">Graduate</option>
+                </select>
+                <select name="" id="select-subject" class="custom-select my-1 mr-sm-2">
+                    <option selected disabled>Subject</option>
+                    <option value="anthropology">Anthropology</option>
+                    <!--<option value="art">Art</option>-->
+                    <option value="biology">Biology</option>
+                    <!--<option value="chemistry">Chemistry</option>-->
+                    <option value="cs">Computer Science</option>
+                    <!--<option value="cj">Criminal Justice</option>-->
+                    <!--<option value="dance">Dance</option>-->
+                    <!--<option value="english">English</option>-->
+                    <option value="history">History</option>
+                    <option value="math">Mathematics</option>
+                </select>
+                <select name="" id="select-semester" class="custom-select my-1 mr-sm-2">
+                    <option selected disabled>Semester</option>
+                    <option value="18summer">2018 Summer</option>
+                    <option value="18fall">2018 Fall</option>
+                    <option value="19spring">2019 Spring</option>
+                </select>
+                <button type="button" class="btn btn-primary" onclick="getFormData()">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

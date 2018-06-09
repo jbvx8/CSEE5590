@@ -1,0 +1,17 @@
+.jumbotron {
+    background-color: #F2CE0E;
+    text-align: center;
+}
+#umkc-logo {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*padding: 20px;*/
+    /*width: 200px;*/
+    /*height: 150px;*/
+}
+.btn-primary {
+    background-color: #0066CC;
+}
