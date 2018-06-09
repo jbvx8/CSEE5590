@@ -1,13 +1,3 @@
-var career = "";
-var subject = "";
-var semester = "";
-
-function getFormData() {
-    career = document.getElementById("select-career").value;
-    subject = document.getElementById("select-subject").value;
-    semester = document.getElementById("select-semester").value;
-}
-
 function Course(career, subject, number, name, semesters, instructor, hours, description, prerequisites, times, rooms, seats, reviews) {
     this.career = career;
     this.subject = subject;
@@ -41,5 +31,36 @@ var anthro103 = new Course("undergraduate", "anthropology", "ANTHRO103", "Introd
     [{reviewer:"anthrostudent", rating:4, review:"Class is easy. Don't buy the book"},
         {reviewer:"slacker", rating:2, review:"This class stinks, boring"},
         {reviewer:"anthro2", rating:5, review:"I loved this class, can't wait to be an anthropologist!"}])
+
+var career = "";
+var subject = "";
+var semester = "";
+var courses = [anthro103];
+
+function search() {
+    career = document.getElementById("select-career").value;
+    subject = document.getElementById("select-subject").value;
+    semester = document.getElementById("select-semester").value;
+
+    return getResults(career, subject, semester);
+}
+
+function getResults(career, subject, semester) {
+    var results = [];
+    for (var i = 0; i < courses.length; i++) {
+        if (courses[i].career == career && courses[i].subject == subject) {
+            for (var j = 0; j < courses[i].semesters.length; j++) {
+                if (courses[i].semesters[j] == semester) {
+                    results.push(courses[i]);
+                }
+            }
+        }
+    }
+    return results;
+}
+
+
+
+
 
 
