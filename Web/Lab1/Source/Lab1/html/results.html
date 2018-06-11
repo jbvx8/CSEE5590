@@ -3,9 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Results</title>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="resultpage.css">
+    <script>
+        function ReadArray() {
+            var controls =  sessionStorage.getItem("controls");
+            //alert(controls);
+            document.getElementById("result").innerHTML = controls;
+        }
+    </script>
 
+</head>
+<body onload=ReadArray();>
+<div>
+    <!--<input id="btnread" type="button" value="ReadArray" onclick="ReadArray();" />-->
+    <!--<br />-->
+    <div id="result"></div>
+    <table>
+        <tr>
+            <td colspan="8">"Course name"</td>
+            <td>"Number"</td>
+            <td colspan="3">"Instructor "</td>
+        </tr>
+        <tr>
+            <td colspan="3">"Semester 1"</td>
+            <td colspan="3">"Time"</td>
+            <td colspan="3">"Room"</td>
+            <td colspan="3">"Seats"</td>
+        </tr>
+        <tr>
+            <td colspan="3">"Semester 2"</td>
+            <td colspan="3">"Time"</td>
+            <td colspan="3">"Room"</td>
+            <td colspan="3">"Seats"</td>
+        </tr>
+        <tr>
+            <td colspan="11">"Description"</td>
+            <td>"Hours"</td>
+        </tr>
+        <tr>
+            <td colspan="3">"Name"</td>
+            <td colspan="2">"Rating"</td>
+            <td colspan="7">"Review"</td>
+        </tr>
+        <tr>
+            <td colspan="3">"Name"</td>
+            <td colspan="2">"Rating"</td>
+            <td colspan="7">"Review"</td>
+        </tr>
+        <tr>
+            <td colspan="3">"Name"</td>
+            <td colspan="2">"Rating"</td>
+            <td colspan="7">"Review"</td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>

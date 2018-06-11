@@ -236,14 +236,15 @@ var math5513 = new Course("graduate", "math", "math5513", "Real Variables I",
 var career = "";
 var subject = "";
 var semester = "";
-var courses = [anthro103];
+var courses = [anthro103,anthro300, anthro322, anthro402, anthro586, biology102, biology108, biology5519, biology5592, compsci101, compsci303, compsci5525, compsci5551, history102, history206, history5501a, history5513, math109, math116, math5509, math5513];
 
 function search() {
     career = document.getElementById("select-career").value;
     subject = document.getElementById("select-subject").value;
     semester = document.getElementById("select-semester").value;
-
-    return getResults(career, subject, semester);
+    var results = getResults(career, subject, semester);
+    sessionStorage.setItem("controls", JSON.stringify(results));
+    var mywin = window.open('http://localhost:63342/Lab1/html/results.html','mywin', 'width=200, height=100');
 }
 
 function getResults(career, subject, semester) {
@@ -259,6 +260,8 @@ function getResults(career, subject, semester) {
     }
     return results;
 }
+
+
 
 
 
