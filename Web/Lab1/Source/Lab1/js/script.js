@@ -243,8 +243,11 @@ function search() {
     subject = document.getElementById("select-subject").value;
     semester = document.getElementById("select-semester").value;
     var results = getResults(career, subject, semester);
-    sessionStorage.setItem("controls", JSON.stringify(results));
-    var mywin = window.open('http://localhost:63342/Lab1/html/results.html','mywin', 'width=200, height=100');
+    // sessionStorage.setItem("controls", JSON.stringify(results));
+    sessionStorage.setItem("results", JSON.stringify(results));
+    sessionStorage.setItem("semester", semester);
+    // var mywin = window.open('http://localhost:63342/Lab1/Source/Lab1/html/results.html','mywin', 'width=200, height=100');
+    window.location = './html/results.html';
 }
 
 function getResults(career, subject, semester) {
@@ -259,6 +262,73 @@ function getResults(career, subject, semester) {
         }
     }
     return results;
+}
+
+function ReadArray() {
+    //var controls =  sessionStorage.getItem("controls");
+    //alert(controls);
+    //document.getElementById("result").innerHTML = controls;
+    var results = JSON.parse(sessionStorage.getItem("results"));
+    var semester = sessionStorage.getItem("semester");
+    var div = document.getElementById("table");
+
+    for (var i = 0; i < results.length; i++) {
+        var table = document.createElement("table");
+        table.className = "table";
+
+        var header = table.createTHead();
+        header.className = "thead-light";
+        var headRow = header.insertRow();
+        var classNumber = headRow.insertCell(0);
+        var result1 = results[i];
+        classNumber.innerHTML = results[i].number;
+        var className = headRow.insertCell(1);
+        className.innerHTML = results[i].name;
+
+        var tableBody = document.createElement('tbody');
+        table.appendChild(tableBody);
+        var row1 = tableBody.insertRow();
+        var creditHours = row1.insertCell(0);
+        creditHours.innerHTML = "Credit Hours: " + results[i].hours;
+        var time = row1.insertCell(1);
+        var times = results[i].times;
+        for (var t = 0; t < times.length; t++) {
+            if (times[t].semester == semester) {
+                time.innerHTML = "Time: " + times[t].time;
+            }
+        }
+        var room = row1.insertCell(2);
+        var rooms = results[i].rooms;
+        for (var r = 0; r < rooms.length; r++) {
+            if (rooms[r].semester == semester) {
+                room.innerHTML = "Room: " + rooms[r].room;
+            }
+        }
+        var instructor = row1.insertCell(3);
+        instructor.innerHTML = "Instructor: " + results[i].instructor;
+
+        var row2 = tableBody.insertRow();
+        var headReviewer = row2.insertCell(0);
+        headReviewer.innerHTML = "Reviewer";
+        var headRating = row2.insertCell(1);
+        headRating.innerHTML = "Rating";
+        var headReview = row2.insertCell(2);
+        headReview.innerHTML = "Review";
+
+        var reviews = results[i].reviews;
+        for (var j = 0; j < reviews.length; j++) {
+            var row = tableBody.insertRow();
+            var reviewer = row.insertCell(0);
+            reviewer.innerHTML = reviews[j].reviewer;
+            var rating = row.insertCell(1);
+            rating.innerHTML = reviews[j].rating;
+            var review = row.insertCell(2);
+            review.innerHTML = reviews[j].review;
+        }
+
+
+        div.appendChild(table);
+    }
 }
 
 
