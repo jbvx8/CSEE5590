@@ -277,13 +277,20 @@ function ReadArray() {
         table.className = "table";
 
         var header = table.createTHead();
-        header.className = "thead-light";
+        header.className = "thead-dark";
         var headRow = header.insertRow();
         var classNumber = headRow.insertCell(0);
         var result1 = results[i];
         classNumber.innerHTML = results[i].number;
         var className = headRow.insertCell(1);
+        className.setAttribute('colspan', 2);
         className.innerHTML = results[i].name;
+        var enroll = headRow.insertCell(2);
+        var button = document.createElement('button');
+        button.className = 'btn btn-primary';
+        button.id = results[i].number;
+        button.innerHTML = "Enroll";
+        enroll.appendChild(button);
 
         var tableBody = document.createElement('tbody');
         table.appendChild(tableBody);
@@ -308,11 +315,13 @@ function ReadArray() {
         instructor.innerHTML = "Instructor: " + results[i].instructor;
 
         var row2 = tableBody.insertRow();
+        row2.className = "bold";
         var headReviewer = row2.insertCell(0);
         headReviewer.innerHTML = "Reviewer";
         var headRating = row2.insertCell(1);
         headRating.innerHTML = "Rating";
         var headReview = row2.insertCell(2);
+        headReview.setAttribute('colspan', 2);
         headReview.innerHTML = "Review";
 
         var reviews = results[i].reviews;
@@ -323,6 +332,7 @@ function ReadArray() {
             var rating = row.insertCell(1);
             rating.innerHTML = reviews[j].rating;
             var review = row.insertCell(2);
+            review.setAttribute('colspan', 2);
             review.innerHTML = reviews[j].review;
         }
 

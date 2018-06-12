@@ -15,7 +15,21 @@
 .btn-primary {
     background-color: #0066CC;
 }
-td {
-    border: 1px solid #000;
-    min-width:3em;
+/*td {*/
+    /*border: 1px solid #000;*/
+    /*min-width:3em;*/
+/*}*/
+.bold {
+    font-weight: bold;
+    background-color: #DDDDDD;
+}
+.thead-dark {
+    font-weight: bold;
+    background-color: #F2CE0E;
+}
+body {
+    padding-top: 40px;
+}
+.table .btn-primary {
+    float: right;
 }
