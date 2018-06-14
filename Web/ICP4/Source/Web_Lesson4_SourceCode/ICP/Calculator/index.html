@@ -10,43 +10,27 @@
 <body ng-controller="CalculatorController">
 <div>
     <form name="calculator" ng-submit="evaluate(expression)">
-        <!--<input type="text" name="calculate"><br>-->
+        <input type="text" ng-model="expression.string" name="calculate"><br>
 
-        <!--<input type="button" value="1" onclick="calculator.calculate.value += '1'">-->
-        <!--<input type="button" value="2" onclick="calculator.calculate.value += '2'">-->
-        <!--<input type="button" value="3" onclick="calculator.calculate.value += '3'">-->
-        <!--<input type="button" class="operator" ng-model="operator" value="/" onclick="calculator.calculate.value += '/'"><br>-->
+        <input type="button" value="1" ng-model="expression.number" ng-click="update('1')">
+        <input type="button" value="2" ng-model="expression.number" ng-click="update('2')">
+        <input type="button" value="3" ng-model="expression.number" ng-click="update('3')">
+        <input type="button" class="operator" ng-model="expression.operator" value="/" ng-click="enterOperator('/')"><br>
 
-        <!--<input type="button" value="4" onclick="calculator.calculate.value += '4'">-->
-        <!--<input type="button" value="5" onclick="calculator.calculate.value += '5'">-->
-        <!--<input type="button" value="6" onclick="calculator.calculate.value += '6'">-->
-        <!--<input type="button" class="operator" ng-model="operator" value="*" onclick="calculator.calculate.value += '*'"><br>-->
+        <input type="button" value="4" ng-model="expression.number" ng-click="update('4')">
+        <input type="button" value="5" ng-model="expression.number" ng-click="update('5')">
+        <input type="button" value="6" ng-model="expression.number" ng-click="update('6')">
+        <input type="button" class="operator" ng-model="expression.operator" value="*" ng-click="enterOperator('*')"><br>
 
-        <!--<input type="button" value="7" onclick="calculator.calculate.value += '7'">-->
-        <!--<input type="button" value="8" onclick="calculator.calculate.value += '8'">-->
-        <!--<input type="button" value="9" onclick="calculator.calculate.value += '9'">-->
-        <!--<input type="button" class="operator" ng-model="operator" value="+" onclick="calculator.calculate.value += '+'"><br>-->
+        <input type="button" value="7" ng-model="expression.number" ng-click="update('7')">
+        <input type="button" value="8" ng-model="expression.number" ng-click="update('8')">
+        <input type="button" value="9" ng-model="expression.number" ng-click="update('9')">
+        <input type="button" class="operator" ng-model="expression.operator" value="+" ng-click="enterOperator('+')"><br>
 
-        <!--<input type="button" value="0" onclick="calculator.calculate.value += '0'">-->
-        <!--<input type="button" id="wide" value="=" onclick="evaluate(calculator.calculate.value)">-->
-        <!--<input type="button" class="operator" ng-model="operator" value="-" onclick="calculator.calculate.value += '-'">-->
-
-        <input type="text" ng-model="expression.a">
-        <select ng-model="expression.operator">
-            <option value="+">+</option>
-            <option value="-">-</option>
-            <option value="*">*</option>
-            <option value="/">/</option>
-        </select>
-        <!--<input type="button" ng-model="expression.operator" value="+">-->
-        <!--<input type="button" ng-model="expression.operator" value="-">-->
-        <!--<input type="button" ng-model="expression.operator" value="*">-->
-        <!--<input type="button" ng-model="expression.operator" value="/">-->
-        <input type="text" ng-model="expression.b">
-        <button type="submit">=</button>
-        <input type="text" id="output">
-
-
+        <input type="button" value="0" ng-model="expression.number" ng-click="update('0')">
+        <input type="button" class="clear" value="C" ng-click="clear()">
+        <input type="button" class="equal" value="=" ng-click="evaluate(expression)">
+        <input type="button" class="operator" ng-model="expression.operator" value="-" ng-click="enterOperator('-')">
     </form>
 </div>
 
