@@ -105,7 +105,7 @@ body .container .todo-list .todo-list__items li {
   list-style: none;
   margin: 0 0 10px;
   padding: 0 20px 0 40px;
-  color: #333;
+  color: #333333;
   overflow: hidden;
   background: #f1f1f1;
   -moz-border-radius: 2px;
@@ -118,6 +118,12 @@ body .container .todo-list .todo-list__items li {
 body .container .todo-list .todo-list__items li.completed {
   color: #79BD9A;
   text-decoration: line-through;
+}
+li.completed i {
+  color: #79BD9A;
+}
+li i {
+  color: #272030;
 }
 body .container .todo-list .todo-list__items li.completed span {
   background: #79BD9A;

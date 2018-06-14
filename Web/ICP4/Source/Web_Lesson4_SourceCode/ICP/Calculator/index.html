@@ -1,13 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="CalculatorApp">
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="calculator.js"></script> // 1. write JS (controller) code in "calculator.js" to work with calculator
-</head>
-<body>
-// 2. write html(view) code to display the todo list
+    <script src="calculator.js"></script>
+<body ng-controller="CalculatorController">
+<div>
+    <form name="calculator" ng-submit="evaluate(expression)">
+        <!--<input type="text" name="calculate"><br>-->
+
+        <!--<input type="button" value="1" onclick="calculator.calculate.value += '1'">-->
+        <!--<input type="button" value="2" onclick="calculator.calculate.value += '2'">-->
+        <!--<input type="button" value="3" onclick="calculator.calculate.value += '3'">-->
+        <!--<input type="button" class="operator" ng-model="operator" value="/" onclick="calculator.calculate.value += '/'"><br>-->
+
+        <!--<input type="button" value="4" onclick="calculator.calculate.value += '4'">-->
+        <!--<input type="button" value="5" onclick="calculator.calculate.value += '5'">-->
+        <!--<input type="button" value="6" onclick="calculator.calculate.value += '6'">-->
+        <!--<input type="button" class="operator" ng-model="operator" value="*" onclick="calculator.calculate.value += '*'"><br>-->
+
+        <!--<input type="button" value="7" onclick="calculator.calculate.value += '7'">-->
+        <!--<input type="button" value="8" onclick="calculator.calculate.value += '8'">-->
+        <!--<input type="button" value="9" onclick="calculator.calculate.value += '9'">-->
+        <!--<input type="button" class="operator" ng-model="operator" value="+" onclick="calculator.calculate.value += '+'"><br>-->
+
+        <!--<input type="button" value="0" onclick="calculator.calculate.value += '0'">-->
+        <!--<input type="button" id="wide" value="=" onclick="evaluate(calculator.calculate.value)">-->
+        <!--<input type="button" class="operator" ng-model="operator" value="-" onclick="calculator.calculate.value += '-'">-->
+
+        <input type="text" ng-model="expression.a">
+        <select ng-model="expression.operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <!--<input type="button" ng-model="expression.operator" value="+">-->
+        <!--<input type="button" ng-model="expression.operator" value="-">-->
+        <!--<input type="button" ng-model="expression.operator" value="*">-->
+        <!--<input type="button" ng-model="expression.operator" value="/">-->
+        <input type="text" ng-model="expression.b">
+        <button type="submit">=</button>
+        <input type="text" id="output">
+
+
+    </form>
+</div>
 
 </body>
 </html>

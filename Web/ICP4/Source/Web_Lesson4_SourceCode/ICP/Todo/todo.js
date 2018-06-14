@@ -14,7 +14,8 @@ angularTodo.controller('angularTodoC', ['$scope', function ($scope) {
 
     // Write code to complete item
     $scope.completeItem = function (index) {
-        $scope.items[index].completed = true;
+        // can flip to uncheck in case it was a mistake
+        $scope.items[index].completed = !$scope.items[index].completed;
     };
 
     // Write code to delete item

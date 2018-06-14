@@ -1,0 +1,26 @@
+button {
+    height: 40px;
+    width: 40px;
+    font-size: 30px;
+}
+input[type="text"] {
+    height: 40px;
+    width: 100px;
+    font-size: 30px;
+}
+select {
+    width: 60px;
+    font-size: 30px;
+}
+/*input[type="text"] {*/
+    /*width: 248px;*/
+    /*height: 40px;*/
+    /*font-size: 30px;*/
+/*}*/
+#wide {
+    width: 124px;
+    background-color: aquamarine;
+}
+.operator {
+    background-color: lightblue;
+}
