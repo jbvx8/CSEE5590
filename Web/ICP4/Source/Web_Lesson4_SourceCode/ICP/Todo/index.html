@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300italic,400italic,500' rel='stylesheet'
           type='text/css'>
-    <script src="https://use.fontawesome.com/21be5f2318.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
     <script src="todo.js"></script> // 1. write JS (controller) code in "todo.js" to work with todo list
 </head>
@@ -19,14 +19,14 @@
         <div class="todo-list">
             <form class="todo-list__head" ng-submit="submitNewItem(item)">
                 <input type="text" class="todo-list-head__text-input" ng-model="item.name">
-                <button type="submit" class="todo-list-head__submit">+</button>
+                <button type="submit" class="todo-list-head__submit"><i class="fas fa-plus"></i></button>
             </form>
             <ul class="todo-list__items">
                 <li ng-repeat="item in items" ng-class="{completed: item.completed}">
                     <span>{{$index + 1}}</span>
                     {{item.name}}
-                    <button class="todo-list-item__complete" ng-click="completeItem($index)">&#10003;</button>
-                    <button class="todo-list-item__trash" ng-click="deleteItem($index)">X</button>
+                    <button class="todo-list-item__complete" ng-click="completeItem($index)"><i class="fas fa-check"></i></button>
+                    <button class="todo-list-item__trash" ng-click="deleteItem($index)"><i class="far fa-trash-alt"></i></button>
                 </li>
             </ul>
         </div>
