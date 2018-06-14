@@ -9,11 +9,10 @@
           type='text/css'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
-    <script src="todo.js"></script> // 1. write JS (controller) code in "todo.js" to work with todo list
+    <script src="todo.js"></script>
 </head>
 
 <body ng-controller="angularTodoC">
-// 2. write html(view) code to display the todo list
     <div class="container">
         <h1>Todo List for 2018</h1>
         <div class="todo-list">
@@ -30,6 +29,7 @@
                 </li>
             </ul>
         </div>
+        <h2>{{completed}} items done and {{pending}} items remaining</h2>
     </div>
 </body>
 </html>

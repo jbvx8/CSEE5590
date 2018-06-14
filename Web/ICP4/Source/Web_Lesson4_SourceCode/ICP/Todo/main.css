@@ -37,6 +37,10 @@ body .container h1 {
   text-transform: uppercase;
   margin: 0 0 30px;
 }
+h2 {
+  color: #FFFFFF;
+  font-size: 20px;
+}
 body .container .todo-list .todo-list__head {
   position: relative;
 }
