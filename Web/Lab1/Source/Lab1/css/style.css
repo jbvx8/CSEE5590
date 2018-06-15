@@ -8,18 +8,10 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    /*padding: 20px;*/
-    /*width: 200px;*/
-    /*height: 150px;*/
 }
 .btn-primary {
     background-color: #0066CC;
 }
-
-/*td {*/
-    /*border: 1px solid #000;*/
-    /*min-width:3em;*/
-/*}*/
 .bold {
     font-weight: bold;
     background-color: #DDDDDD;

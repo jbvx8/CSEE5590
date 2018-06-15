@@ -1,18 +1,21 @@
 function Course(career, subject, number, name, semesters, instructor, hours, description, prerequisites, times, rooms, seats, reviews,logo) {
-    this.career = career;
-    this.subject = subject;
-    this.number = number;
-    this.name = name;
-    this.semesters = semesters;
-    this.instructor = instructor;
-    this.hours = hours;
-    this.description = description;
-    this.prerequisites = prerequisites;
-    this.times = times;
-    this.rooms = rooms;
-    this.seats = seats;
-    this.remaining = this.seats;
-    this.reviews = reviews;
+    this.career = career;                   // undergraduate, graduate
+    this.subject = subject;                 // major subject
+    this.number = number;                   // e.g. CS101
+    this.name = name;                       // course title
+    this.semesters = semesters;             // array of semesters offered
+    this.instructor = instructor;           // instructor for course
+    this.hours = hours;                     // credit hours
+    this.description = description;         // string description of course
+    this.prerequisites = prerequisites;     // course prerequisites
+    this.times = times;                     // object array of semster and time
+    this.rooms = rooms;                     // object array of semester and rooms
+    this.seats = seats;                     // object array of semester and total seats
+    this.remaining = this.seats;            // object array of semester and remaining seats
+    this.reviews = reviews;                 // object array of reviews, including reviewer, rating, and full review
+    this.logo = logo;                       // image for the course
+
+    // decrements the value for seats remaining for that semester when a user enrolls
     this.enroll = function (semester) {
         for (i = 0; i < this.remaining.length; i++) {
             if (this.remaining[i].semester == semester) {
@@ -20,9 +23,9 @@ function Course(career, subject, number, name, semesters, instructor, hours, des
             }
         }
     };
-    this.logo = logo;
 }
 
+// create new courses
 var anthro103 = new Course("undergraduate", "anthropology", "anthro103", "Introduction to Cultural Anthropology",
     ["fall2018", "spring2019"], "Jefferey Bennett", 3,
     "An introduction to culture and the basic concepts of anthropology.  Topics include kinship, language, and cultural change.",
@@ -234,14 +237,18 @@ var math5513 = new Course("graduate", "math", "math5513", "Real Variables I",
         {reviewer:"leyla", rating:4, review:"If you can teach yourself, you can easily pass the class."},
         {reviewer:"paul", rating:4, review:"Basically homework is everything"}],"math5513.jpg");
 
+// global variables
 var career = "";
 var subject = "";
 var semester = "";
-
 var courses = [anthro103,anthro300, anthro322, anthro402, anthro586, biology102, biology108, biology5519, biology5592, compsci101, compsci303, compsci5525, compsci5551, history102, history206, history5501a, history5513, math109, math116, math5509, math5513];
-
+// need to save course to enroll as global in order to use it in onclick function
 var courseToEnroll = null;
 
+// Called when the user presses the search button on the index page.
+// Sets the global variables for career, subject, and semester.
+// Calls the getResults function and stores the results.
+// Redirects to results page.
 function search() {
     career = document.getElementById("select-career").value;
     subject = document.getElementById("select-subject").value;
@@ -255,6 +262,8 @@ function search() {
 
     window.location = './html/results.html';
 }
+
+// Saves the selected class number and redirects to the enrollment page for the course
 function gotoenroll(selectedclass) {
     var t = $(selectedclass).text();
     if($(selectedclass).text() == "")
@@ -264,140 +273,146 @@ function gotoenroll(selectedclass) {
     sessionStorage.setItem("selected",t);
     window.location = 'enroll.html';
 }
+
+
 function enroll() {
+    // retrieve the selected course to enroll
     var selectedclass = sessionStorage.getItem("selected");
     var results = [];
+
+    // parse the results string from session
     var resultsJSON = JSON.parse(sessionStorage.getItem("results"));
+
+    // must convert JSON objects back to Course objects in order to access class methods
     resultsJSON.forEach(function(result) {
         var course = Object.assign(new Course(), result);
         results.push(course);
     })
+
     var semester = sessionStorage.getItem("semester");
     var div = document.getElementById("enrollTable");
 
-for (var i = 0; i < results.length; i++) {
-    if(results[i].number.toUpperCase() == selectedclass.toUpperCase())
-    {
-        var table = document.createElement("table");
-        table.className = "table";
-
-        var header = table.createTHead();
-        header.className = "thead-dark";
-        var headRow = header.insertRow();
-        var classNumber = headRow.insertCell(0);
-        var result1 = results[i];
-        classNumber.innerHTML = results[i].number.toUpperCase();
-        var className = headRow.insertCell(1);
-        className.setAttribute('colspan', 3);
-        className.innerHTML = results[i].name;
-        // var enroll = headRow.insertCell(2);
-        // var button = document.createElement('button');
-        // button.className = 'btn btn-primary';
-        // button.id = results[i].number;
-        //
-        // button.innerHTML = "Enroll";
-        // button.onclick = function () { enrollButtonClick() };
-        // enroll.appendChild(button);
-        var back = headRow.insertCell(2);
-        var backButton = document.createElement('button');
-        backButton.className = 'btn btn-primary'
-        backButton.innerHTML = "Back";
-        backButton.onclick = function () { window.history.back(); }
-        back.appendChild(backButton);
-
-
-
-
-        var tableBody = document.createElement('tbody');
-        table.appendChild(tableBody);
-        var row1 = tableBody.insertRow();
-        var logo = row1.insertCell(0);
-        logo.setAttribute('rowspan', 5);
-        logo.innerHTML =  "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\">";
-        var creditHours = row1.insertCell(1);
-        creditHours.innerHTML = "Credit Hours: " + results[i].hours;
-        var time = row1.insertCell(2);
-        var times = results[i].times;
-        for (var t = 0; t < times.length; t++) {
-            if (times[t].semester == semester) {
-                time.innerHTML = "Time: " + times[t].time;
-            }
-        }
-        var room = row1.insertCell(3);
-        var rooms = results[i].rooms;
-        for (var r = 0; r < rooms.length; r++) {
-            if (rooms[r].semester == semester) {
-                room.innerHTML = "Room: " + rooms[r].room;
-            }
-        }
-        var instructor = row1.insertCell(4);
-        instructor.innerHTML = "Instructor: " + results[i].instructor;
-
-        var row2 = tableBody.insertRow();
-        row2.className = "bold";
-        var headReviewer = row2.insertCell(0);
-        headReviewer.innerHTML = "Reviewer";
-        var headRating = row2.insertCell(1);
-        headRating.innerHTML = "Rating";
-        var headReview = row2.insertCell(2);
-        headReview.setAttribute('colspan', 3);
-        headReview.innerHTML = "Review";
-
-        var reviews = results[i].reviews;
-        for (var j = 0; j < reviews.length; j++) {
-            var row = tableBody.insertRow();
-            var reviewer = row.insertCell(0);
-            reviewer.innerHTML = reviews[j].reviewer;
-            var rating = row.insertCell(1);
-            rating.innerHTML = reviews[j].rating;
-            var review = row.insertCell(2);
-            review.setAttribute('colspan', 3);
-            review.innerHTML = reviews[j].review;
-        }
-
-        // var logo = tableBody.insertRow();
-        // logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\">";
-
-        var seatsNum = results[i].seats;
-        for (var h = 0; h < seatsNum.length; h++)
+    for (var i = 0; i < results.length; i++) {
+        // if the result course matches the selected course
+        if(results[i].number.toUpperCase() == selectedclass.toUpperCase())
         {
-            if(seatsNum[h].semester == semester){
-                var totalSeats = seatsNum[h].seats;
-                var availableSeats = seatsNum[h].seats;
+            // dynamically create table with selected course details
+            var table = document.createElement("table");
+            table.className = "table";
 
+            // header row in table contains course number, course name, and a back button that redirects to the results
+            var header = table.createTHead();
+            header.className = "thead-dark";
+            var headRow = header.insertRow();
+            var classNumber = headRow.insertCell(0);
+            classNumber.innerHTML = results[i].number.toUpperCase();
+            var className = headRow.insertCell(1);
+            className.setAttribute('colspan', 3);
+            className.innerHTML = results[i].name;
+            var back = headRow.insertCell(2);
+            var backButton = document.createElement('button');
+            backButton.className = 'btn btn-primary'
+            backButton.innerHTML = "Back";
+            backButton.onclick = function () { window.history.back(); }
+            back.appendChild(backButton);
+
+            // table body
+            var tableBody = document.createElement('tbody');
+            table.appendChild(tableBody);
+
+            // row1 includes the course image, credit hours, time, room, and instructor
+            var row1 = tableBody.insertRow();
+            var logo = row1.insertCell(0);
+            logo.setAttribute('rowspan', 5);
+            logo.innerHTML =  "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\">";
+            var creditHours = row1.insertCell(1);
+            creditHours.innerHTML = "Credit Hours: " + results[i].hours;
+            var time = row1.insertCell(2);
+            var times = results[i].times;
+
+            // must iterate through the times array to find the time for the selected semester
+            for (var t = 0; t < times.length; t++) {
+                if (times[t].semester == semester) {
+                    time.innerHTML = "Time: " + times[t].time;
+                }
             }
+
+            var room = row1.insertCell(3);
+            var rooms = results[i].rooms;
+
+            // must iterate through the rooms array to find the room for the selected semester
+            for (var r = 0; r < rooms.length; r++) {
+                if (rooms[r].semester == semester) {
+                    room.innerHTML = "Room: " + rooms[r].room;
+                }
+            }
+            var instructor = row1.insertCell(4);
+            instructor.innerHTML = "Instructor: " + results[i].instructor;
+
+            // row2 contains headings for reviews
+            var row2 = tableBody.insertRow();
+            row2.className = "bold";
+            var headReviewer = row2.insertCell(0);
+            headReviewer.innerHTML = "Reviewer";
+            var headRating = row2.insertCell(1);
+            headRating.innerHTML = "Rating";
+            var headReview = row2.insertCell(2);
+            headReview.setAttribute('colspan', 3);
+            headReview.innerHTML = "Review";
+
+            // additional rows are dynamically inserted to add reviewer, rating, and review for each review
+            var reviews = results[i].reviews;
+            for (var j = 0; j < reviews.length; j++) {
+                var row = tableBody.insertRow();
+                var reviewer = row.insertCell(0);
+                reviewer.innerHTML = reviews[j].reviewer;
+                var rating = row.insertCell(1);
+                rating.innerHTML = reviews[j].rating;
+                var review = row.insertCell(2);
+                review.setAttribute('colspan', 3);
+                review.innerHTML = reviews[j].review;
+            }
+
+            // must iterate through the seats array to find the number of seats for the selected semester
+            var seatsNum = results[i].seats;
+            for (var h = 0; h < seatsNum.length; h++)
+            {
+                if(seatsNum[h].semester == semester){
+                    var totalSeats = seatsNum[h].seats;
+                    var availableSeats = seatsNum[h].seats;
+                }
+            }
+
+            // add a seatsRow to show the total seats, available seats, enrollments, and an enroll button
+            var seatsRow = tableBody.insertRow();
+            seatsRow.className= "bold";
+            var seatsTotal = seatsRow.insertCell(0);
+            seatsTotal.innerHTML = "Total seats: "+ totalSeats;
+            var seatsAvailable = seatsRow.insertCell(1);
+            seatsAvailable.id = "available";
+            seatsAvailable.setAttribute('colspan', 2);
+            seatsAvailable.innerHTML =  "Available seats: "+ availableSeats;
+            var enrolledSeats = seatsRow.insertCell(2);
+            enrolledSeats.id = "enrolled";
+            enrolledSeats.innerHTML = "Enrolled:";
+
+            var enroll = seatsRow.insertCell(3);
+            var button = document.createElement('button');
+            button.className = 'btn btn-primary';
+            button.id = results[i].number;
+            button.innerHTML = "Enroll";
+
+            // set courseToEnroll variable so that it can be used in the onclick function
+            courseToEnroll = results[i];
+            button.addEventListener("click", function () {enrollButtonClick()});
+            enroll.appendChild(button);
+
+            var emptyRow = tableBody.insertRow();
+            emptyRow.innerHTML += "<br>";
+
+            // add table to the div
+            div.appendChild(table);
         }
-
-        var seatsRow = tableBody.insertRow();
-        seatsRow.className= "bold";
-        var seatsTotal = seatsRow.insertCell(0);
-        seatsTotal.innerHTML = "Total seats: "+ totalSeats;
-        var seatsAvailable = seatsRow.insertCell(1);
-        seatsAvailable.id = "available";
-        seatsAvailable.setAttribute('colspan', 2);
-        seatsAvailable.innerHTML =  "Available seats: "+availableSeats;
-        var enrolledSeats = seatsRow.insertCell(2);
-        enrolledSeats.id = "enrolled";
-        // enrolledSeats.setAttribute('colspan', 2);
-        enrolledSeats.innerHTML = "Enrolled:";
-
-        var enroll = seatsRow.insertCell(3);
-        var button = document.createElement('button');
-        button.className = 'btn btn-primary';
-        button.id = results[i].number;
-
-        button.innerHTML = "Enroll";
-        //button.onclick = function () { enrollButtonClick(results[i]); };
-        courseToEnroll = results[i];
-        button.addEventListener("click", function () {enrollButtonClick()});
-        enroll.appendChild(button);
-
-
-        var emptyRow = tableBody.insertRow();
-        emptyRow.innerHTML += "<br>";
-
-        div.appendChild(table);
-    }
     }
 }
 function enrollButtonClick() {
@@ -415,17 +430,9 @@ function enrollButtonClick() {
         }
     }
 }
-//     if (courseToEnroll.remaining > 0) {
-//         alert("You have been successfully enrolled in class!");
-//         courseToEnroll.enroll(sessionStorage.getItem("semester"));
-//         document.getElementById("available").innerHTML = courseToEnroll.remaining;
-//         document.getElementById("enrolled").innerHTML = courseToEnroll.seats - courseToEnroll.remaining;
-//     } else {
-//         alert("This class is full. Please find another class.")
-//     }
-//
-// }
 
+// searches through the courses array to find the courses that match the search terms
+// returns the matching courses as an array of Course objects
 function getResults(career, subject, semester) {
     var results = [];
     for (var i = 0; i < courses.length; i++) {
@@ -440,14 +447,14 @@ function getResults(career, subject, semester) {
     return results;
 }
 
-
+// Called when the results page loads.
+// Reads the array returned by the previous function and dynamically creates a table to display the results
 function ReadArray() {
-    //var controls =  sessionStorage.getItem("controls");
-    //alert(controls);
-    //document.getElementById("result").innerHTML = controls;
     var results = JSON.parse(sessionStorage.getItem("results"));
     var semester = sessionStorage.getItem("semester");
     var div = document.getElementById("table");
+
+    // display the searched terms at the top of the results page
     var head = document.getElementById("searchTerms");
     head.innerHTML = "You searched for: " + sessionStorage.getItem("career") + ", " + sessionStorage.getItem("subject") + ", " + semester;
 
@@ -455,6 +462,7 @@ function ReadArray() {
         var table = document.createElement("table");
         table.className = "table";
 
+        // Header row includes the course number and name.  Course number links to the Course enrollment detail page
         var header = table.createTHead();
         header.className = "thead-dark";
         var headRow = header.insertRow();
@@ -464,18 +472,16 @@ function ReadArray() {
         var className = headRow.insertCell(1);
         className.setAttribute('colspan', 4);
         className.innerHTML = results[i].name;
-        // var enroll = headRow.insertCell(2);
-        // var button = document.createElement('button');
-        // button.className = 'btn btn-primary';
-        // button.id = results[i].number;
-        //button.innerHTML = "Enroll";
-        //enroll.appendChild(button);
 
+        // Table body
         var tableBody = document.createElement('tbody');
         table.appendChild(tableBody);
-        var value = results[i].number;
-        var row1 = tableBody.insertRow();
 
+        // used to get the course number for looking up the image
+        var value = results[i].number;
+
+        // row1 includes the image, credit hours, time, room, and instructor
+        var row1 = tableBody.insertRow();
         var logo = row1.insertCell(0);
         logo.setAttribute('rowspan', 5);
         logo.innerHTML = logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\" onclick=\"gotoenroll(" + value + ")\" >";
@@ -483,6 +489,8 @@ function ReadArray() {
         creditHours.innerHTML = "Credit Hours: " + results[i].hours;
         var time = row1.insertCell(2);
         var times = results[i].times;
+
+        // must iterate through the times array to find the time for the selected semester
         for (var t = 0; t < times.length; t++) {
             if (times[t].semester == semester) {
                 time.innerHTML = "Time: " + times[t].time;
@@ -490,6 +498,8 @@ function ReadArray() {
         }
         var room = row1.insertCell(3);
         var rooms = results[i].rooms;
+
+        // must iterate over the rooms array to find the room for the selected semester
         for (var r = 0; r < rooms.length; r++) {
             if (rooms[r].semester == semester) {
                 room.innerHTML = "Room: " + rooms[r].room;
@@ -498,6 +508,7 @@ function ReadArray() {
         var instructor = row1.insertCell(4);
         instructor.innerHTML = "Instructor: " + results[i].instructor;
 
+        // row2 includes headings for reviews
         var row2 = tableBody.insertRow();
         row2.className = "bold";
         var headReviewer = row2.insertCell(0);
@@ -508,6 +519,7 @@ function ReadArray() {
         headReview.setAttribute('colspan', 2);
         headReview.innerHTML = "Review";
 
+        // additional rows are dynamically inserted to add reviewer, rating, and review for each review
         var reviews = results[i].reviews;
         for (var j = 0; j < reviews.length; j++) {
             var row = tableBody.insertRow();
@@ -520,12 +532,7 @@ function ReadArray() {
             review.innerHTML = reviews[j].review;
         }
 
-        // var value = results[i].number;
-        // var logo = tableBody.insertRow();
-        // logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\" onclick=\"gotoenroll(" + value + ")\" >";
-        // var emptyRow = tableBody.insertRow();
-        //      emptyRow.innerHTML += "<br>";
-
+        // add table to the div
         div.appendChild(table);
     }
 }
