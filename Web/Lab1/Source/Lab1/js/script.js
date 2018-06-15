@@ -15,11 +15,11 @@ function Course(career, subject, number, name, semesters, instructor, hours, des
     this.reviews = reviews;
     this.enroll = function (semester) {
         for (i = 0; i < this.remaining.length; i++) {
-            if (this.remaining.semester == semester) {
-                this.remaining.seats--;
+            if (this.remaining[i].semester == semester) {
+                this.remaining[i].seats--;
             }
         }
-    }
+    };
     this.logo = logo;
 }
 
@@ -240,6 +240,8 @@ var semester = "";
 
 var courses = [anthro103,anthro300, anthro322, anthro402, anthro586, biology102, biology108, biology5519, biology5592, compsci101, compsci303, compsci5525, compsci5551, history102, history206, history5501a, history5513, math109, math116, math5509, math5513];
 
+var courseToEnroll = null;
+
 function search() {
     career = document.getElementById("select-career").value;
     subject = document.getElementById("select-subject").value;
@@ -264,11 +266,16 @@ function gotoenroll(selectedclass) {
 }
 function enroll() {
     var selectedclass = sessionStorage.getItem("selected");
-    var results = JSON.parse(sessionStorage.getItem("results"));
+    var results = [];
+    var resultsJSON = JSON.parse(sessionStorage.getItem("results"));
+    resultsJSON.forEach(function(result) {
+        var course = Object.assign(new Course(), result);
+        results.push(course);
+    })
     var semester = sessionStorage.getItem("semester");
     var div = document.getElementById("enrollTable");
 
-for (var i = 0; i != results.length; i++) {
+for (var i = 0; i < results.length; i++) {
     if(results[i].number.toUpperCase() == selectedclass.toUpperCase())
     {
         var table = document.createElement("table");
@@ -366,9 +373,11 @@ for (var i = 0; i != results.length; i++) {
         var seatsTotal = seatsRow.insertCell(0);
         seatsTotal.innerHTML = "Total seats: "+ totalSeats;
         var seatsAvailable = seatsRow.insertCell(1);
+        seatsAvailable.id = "available";
         seatsAvailable.setAttribute('colspan', 2);
         seatsAvailable.innerHTML =  "Available seats: "+availableSeats;
         var enrolledSeats = seatsRow.insertCell(2);
+        enrolledSeats.id = "enrolled";
         // enrolledSeats.setAttribute('colspan', 2);
         enrolledSeats.innerHTML = "Enrolled:";
 
@@ -378,7 +387,9 @@ for (var i = 0; i != results.length; i++) {
         button.id = results[i].number;
 
         button.innerHTML = "Enroll";
-        button.onclick = function () { enrollButtonClick() };
+        //button.onclick = function () { enrollButtonClick(results[i]); };
+        courseToEnroll = results[i];
+        button.addEventListener("click", function () {enrollButtonClick()});
         enroll.appendChild(button);
 
 
@@ -390,8 +401,30 @@ for (var i = 0; i != results.length; i++) {
     }
 }
 function enrollButtonClick() {
-    alert("You have been successfully enrolled in class!");
+    for (var i = 0; i < courseToEnroll.remaining.length; i++) {
+        var s = sessionStorage.getItem("semester");
+        if (courseToEnroll.remaining[i].semester == s) {
+            if (courseToEnroll.remaining[i].seats > 0) {
+                courseToEnroll.enroll(s);
+                document.getElementById("available").innerHTML = "Available seats: " + courseToEnroll.remaining[i].seats;
+                document.getElementById("enrolled").innerHTML = "Enrolled: " + (courseToEnroll.seats[i].seats - courseToEnroll.remaining[i].seats);
+                alert("You have been successfully enrolled in class!");
+            } else {
+                alert("This class is full. Please find another class.")
+            }
+        }
+    }
 }
+//     if (courseToEnroll.remaining > 0) {
+//         alert("You have been successfully enrolled in class!");
+//         courseToEnroll.enroll(sessionStorage.getItem("semester"));
+//         document.getElementById("available").innerHTML = courseToEnroll.remaining;
+//         document.getElementById("enrolled").innerHTML = courseToEnroll.seats - courseToEnroll.remaining;
+//     } else {
+//         alert("This class is full. Please find another class.")
+//     }
+//
+// }
 
 function getResults(career, subject, semester) {
     var results = [];
