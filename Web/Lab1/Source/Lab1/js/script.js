@@ -248,6 +248,8 @@ function search() {
 
     sessionStorage.setItem("results", JSON.stringify(results));
     sessionStorage.setItem("semester", semester);
+    sessionStorage.setItem("subject", subject);
+    sessionStorage.setItem("career", career);
 
     window.location = './html/results.html';
 }
@@ -279,37 +281,49 @@ for (var i = 0; i != results.length; i++) {
         var result1 = results[i];
         classNumber.innerHTML = results[i].number.toUpperCase();
         var className = headRow.insertCell(1);
-        className.setAttribute('colspan', 2);
+        className.setAttribute('colspan', 3);
         className.innerHTML = results[i].name;
-        var enroll = headRow.insertCell(2);
-        var button = document.createElement('button');
-        button.className = 'btn btn-primary';
-        button.id = results[i].number;
+        // var enroll = headRow.insertCell(2);
+        // var button = document.createElement('button');
+        // button.className = 'btn btn-primary';
+        // button.id = results[i].number;
+        //
+        // button.innerHTML = "Enroll";
+        // button.onclick = function () { enrollButtonClick() };
+        // enroll.appendChild(button);
+        var back = headRow.insertCell(2);
+        var backButton = document.createElement('button');
+        backButton.className = 'btn btn-primary'
+        backButton.innerHTML = "Back";
+        backButton.onclick = function () { window.history.back(); }
+        back.appendChild(backButton);
 
-        button.innerHTML = "Enroll";
-        button.onclick = function () { enrollButtonClick() };
-        enroll.appendChild(button);
+
+
 
         var tableBody = document.createElement('tbody');
         table.appendChild(tableBody);
         var row1 = tableBody.insertRow();
-        var creditHours = row1.insertCell(0);
+        var logo = row1.insertCell(0);
+        logo.setAttribute('rowspan', 5);
+        logo.innerHTML =  "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\">";
+        var creditHours = row1.insertCell(1);
         creditHours.innerHTML = "Credit Hours: " + results[i].hours;
-        var time = row1.insertCell(1);
+        var time = row1.insertCell(2);
         var times = results[i].times;
         for (var t = 0; t < times.length; t++) {
             if (times[t].semester == semester) {
                 time.innerHTML = "Time: " + times[t].time;
             }
         }
-        var room = row1.insertCell(2);
+        var room = row1.insertCell(3);
         var rooms = results[i].rooms;
         for (var r = 0; r < rooms.length; r++) {
             if (rooms[r].semester == semester) {
                 room.innerHTML = "Room: " + rooms[r].room;
             }
         }
-        var instructor = row1.insertCell(3);
+        var instructor = row1.insertCell(4);
         instructor.innerHTML = "Instructor: " + results[i].instructor;
 
         var row2 = tableBody.insertRow();
@@ -319,7 +333,7 @@ for (var i = 0; i != results.length; i++) {
         var headRating = row2.insertCell(1);
         headRating.innerHTML = "Rating";
         var headReview = row2.insertCell(2);
-        headReview.setAttribute('colspan', 2);
+        headReview.setAttribute('colspan', 3);
         headReview.innerHTML = "Review";
 
         var reviews = results[i].reviews;
@@ -330,12 +344,12 @@ for (var i = 0; i != results.length; i++) {
             var rating = row.insertCell(1);
             rating.innerHTML = reviews[j].rating;
             var review = row.insertCell(2);
-            review.setAttribute('colspan', 2);
+            review.setAttribute('colspan', 3);
             review.innerHTML = reviews[j].review;
         }
 
-        var logo = tableBody.insertRow();
-        logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\">";
+        // var logo = tableBody.insertRow();
+        // logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\">";
 
         var seatsNum = results[i].seats;
         for (var h = 0; h < seatsNum.length; h++)
@@ -351,11 +365,22 @@ for (var i = 0; i != results.length; i++) {
         seatsRow.className= "bold";
         var seatsTotal = seatsRow.insertCell(0);
         seatsTotal.innerHTML = "Total seats: "+ totalSeats;
-          var seatsAvailable = seatsRow.insertCell(1);
+        var seatsAvailable = seatsRow.insertCell(1);
+        seatsAvailable.setAttribute('colspan', 2);
         seatsAvailable.innerHTML =  "Available seats: "+availableSeats;
         var enrolledSeats = seatsRow.insertCell(2);
-        enrolledSeats.setAttribute('colspan', 2);
+        // enrolledSeats.setAttribute('colspan', 2);
         enrolledSeats.innerHTML = "Enrolled:";
+
+        var enroll = seatsRow.insertCell(3);
+        var button = document.createElement('button');
+        button.className = 'btn btn-primary';
+        button.id = results[i].number;
+
+        button.innerHTML = "Enroll";
+        button.onclick = function () { enrollButtonClick() };
+        enroll.appendChild(button);
+
 
         var emptyRow = tableBody.insertRow();
         emptyRow.innerHTML += "<br>";
@@ -390,6 +415,8 @@ function ReadArray() {
     var results = JSON.parse(sessionStorage.getItem("results"));
     var semester = sessionStorage.getItem("semester");
     var div = document.getElementById("table");
+    var head = document.getElementById("searchTerms");
+    head.innerHTML = "You searched for: " + sessionStorage.getItem("career") + ", " + sessionStorage.getItem("subject") + ", " + semester;
 
     for (var i = 0; i < results.length; i++) {
         var table = document.createElement("table");
@@ -402,35 +429,40 @@ function ReadArray() {
         var result1 = results[i];
         classNumber.innerHTML = "<p id=\"num\" onclick=\"gotoenroll(this)\">" + results[i].number.toUpperCase() + "</p>";
         var className = headRow.insertCell(1);
-        className.setAttribute('colspan', 2);
+        className.setAttribute('colspan', 4);
         className.innerHTML = results[i].name;
-        var enroll = headRow.insertCell(2);
-        var button = document.createElement('button');
-        button.className = 'btn btn-primary';
-        button.id = results[i].number;
+        // var enroll = headRow.insertCell(2);
+        // var button = document.createElement('button');
+        // button.className = 'btn btn-primary';
+        // button.id = results[i].number;
         //button.innerHTML = "Enroll";
         //enroll.appendChild(button);
 
         var tableBody = document.createElement('tbody');
         table.appendChild(tableBody);
+        var value = results[i].number;
         var row1 = tableBody.insertRow();
-        var creditHours = row1.insertCell(0);
+
+        var logo = row1.insertCell(0);
+        logo.setAttribute('rowspan', 5);
+        logo.innerHTML = logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\" onclick=\"gotoenroll(" + value + ")\" >";
+        var creditHours = row1.insertCell(1);
         creditHours.innerHTML = "Credit Hours: " + results[i].hours;
-        var time = row1.insertCell(1);
+        var time = row1.insertCell(2);
         var times = results[i].times;
         for (var t = 0; t < times.length; t++) {
             if (times[t].semester == semester) {
                 time.innerHTML = "Time: " + times[t].time;
             }
         }
-        var room = row1.insertCell(2);
+        var room = row1.insertCell(3);
         var rooms = results[i].rooms;
         for (var r = 0; r < rooms.length; r++) {
             if (rooms[r].semester == semester) {
                 room.innerHTML = "Room: " + rooms[r].room;
             }
         }
-        var instructor = row1.insertCell(3);
+        var instructor = row1.insertCell(4);
         instructor.innerHTML = "Instructor: " + results[i].instructor;
 
         var row2 = tableBody.insertRow();
@@ -455,11 +487,11 @@ function ReadArray() {
             review.innerHTML = reviews[j].review;
         }
 
-        var value = results[i].number;
-        var logo = tableBody.insertRow();
-        logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\" onclick=\"gotoenroll(" + value + ")\" >";
-        var emptyRow = tableBody.insertRow();
-             emptyRow.innerHTML += "<br>";
+        // var value = results[i].number;
+        // var logo = tableBody.insertRow();
+        // logo.innerHTML = "<img src=\"../resources/"+results[i].logo+"\" style=\"height: 200px;width: 250px\" onclick=\"gotoenroll(" + value + ")\" >";
+        // var emptyRow = tableBody.insertRow();
+        //      emptyRow.innerHTML += "<br>";
 
         div.appendChild(table);
     }
