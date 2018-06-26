@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="wikiApp">
+<html lang="en" ng-app="twitterApp">
 <head>
     <meta charset="UTF-8">
     <title>Wikipedia Tree</title>
@@ -9,16 +9,16 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body ng-controller="WikiCtrl">
+<body ng-controller="TwitterCtrl">
 
 <div class="container">
-    <div>
-        <img src="https://fontmeme.com/images/Wikipedia-Logo.jpg" id="logo">
-    </div>
-    <form class="form-inline">
-        <input type="text" class="form-control" ng-model="searchText">
-        <button class="btn btn-light" ng-click="search()">Search</button>
-    </form>
+    <!--<div>-->
+        <!--<img src="https://fontmeme.com/images/Wikipedia-Logo.jpg" id="logo">-->
+    <!--</div>-->
+    <!--<form class="form-inline">-->
+        <!--<input type="text" class="form-control" ng-model="searchText">-->
+        <!--<button class="btn btn-light" ng-click="search()">Search</button>-->
+    <!--</form>-->
 </div>
 
 
@@ -28,8 +28,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <!-- AngularJS -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
 <script src="../config/tokens.js"></script>
 <script src="script.js"></script>
 </body>
+
+
 </html>
