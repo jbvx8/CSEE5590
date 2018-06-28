@@ -59,38 +59,52 @@
 // });
 
 
-angular.module('twitterApp', [])
+var app = angular.module('twitterApp', [])
     .config(function($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
             'self',
             'https://api.twitter.com/**'
         ])
-    })
-    .controller('TwitterCtrl', function($scope, $http) {
-        var response = getToken();
-        var token = "";
+    });
 
-        function getToken() {
-            var config = {
-                params: {
-                    grant_type: "client_credentials",
-                    // jsonpCallbackParam: "callback"
-                },
-                // method: "POST",
-                // data: "grant_type=client_credentials",
-                headers: {
-                    "Authorization": "Basic " + getTwitterKey(),
-                    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-                    "Api-User-Agent": "MyTwitterApp"
-                }
-            };
-            $http.post("https://api.twitter.com/oauth2/token", "", config)
-                .then(function(response) {
-                    console.log(response);
-                    if (response.status == 200) {
-                        alert(response.data.access_token);
-                } else {
-                    alert("fail");              }
-            });
+    app.run(function ($http) {
+        // Add CORS header
+        $http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+    })
+
+    app.controller('TwitterCtrl', function($scope, $http) {
+        // var response = getToken();
+        // var token = "";
+        //
+        // function getToken() {
+        //     var config = {
+        //         params: {
+        //             grant_type: "client_credentials",
+        //             // jsonpCallbackParam: "callback"
+        //         },
+        //         // method: "POST",
+        //         // data: "grant_type=client_credentials",
+        //         headers: {
+        //             "Authorization": "Basic " + getTwitterKey(),
+        //             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        //             "Api-User-Agent": "MyTwitterApp"
+        //         }
+        //     };
+        //     $http.post("https://api.twitter.com/oauth2/token", "", config)
+        //         .then(function(response) {
+        //             console.log(response);
+        //             if (response.status == 200) {
+        //                 alert(response.data.access_token);
+        //         } else {
+        //             alert("fail");              }
+        //     });
+        // }
+
+        $scope.getFriends = function(screenName) {
+            var req = $http.get('http://127.0.0.1:8081/getFriends/' + screenName)
+                .then(function (data) {
+                    $scope.friendsList = data;
+                    console.log(data);
+                })
         }
     });

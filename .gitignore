@@ -70,3 +70,7 @@ Web/ICP4/Source/Web_Lesson4_SourceCode/.idea/workspace.xml
 Web/ICP4/Source/Web_Lesson4_SourceCode/.idea/workspace.xml
 *.xml
 Web/Lab2/Source/Lab2/config/tokens.js
+
+node_modules/
+Web/Lab2/package-lock.json
+Web/Lab2/package-lock.json

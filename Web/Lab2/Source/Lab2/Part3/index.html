@@ -19,6 +19,14 @@
         <!--<input type="text" class="form-control" ng-model="searchText">-->
         <!--<button class="btn btn-light" ng-click="search()">Search</button>-->
     <!--</form>-->
+
+    <form class="form-inline">
+        <input type="text" class="form-control" ng-model="screenName" placeholder="Enter user name">
+        <button class="btn btn-light" ng-click="getFriends(screenName)">Get Friends</button>
+    </form>
+    <ul>
+        <li ng-repeat="friend in friendsList">{{friend.screen_name}}</li>
+    </ul>
 </div>
 
 
@@ -30,6 +38,7 @@
 <!-- AngularJS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
 <script src="../config/tokens.js"></script>
+<script src="twitter.js"></script>
 <script src="script.js"></script>
 </body>
 
