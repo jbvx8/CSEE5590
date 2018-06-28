@@ -113,7 +113,7 @@ var app = angular.module('twitterApp', [])
         var getFriendTree = function(arr, root) {
             var jsonTree = { "name" : root, "children" : [] };
             angular.forEach(arr, function(friend) {
-                jsonTree.children.push({"name": friend.screen_name, "children":[] });
+                jsonTree.children.push({"name": friend.screen_name });
             });
             return jsonTree;
         };
@@ -277,26 +277,25 @@ var app = angular.module('twitterApp', [])
                     //     update(d);
                     // });
 
-                if (d.children) {
-                    d._children = d.children;
-                    d.children = null;
-                } else {
+                // if (d.children) {
+                //     d._children = d.children;
+                //     d.children = null;
+                //     //update(d);
+                // } else {
 
                     var req1 = $http.get('http://127.0.0.1:8081/getFriends/' + d.name)
                         .then(function (data) {
                             $scope.friendsListNew = data.data;
-                            var i = 0;
+                            d.children = [];
                             angular.forEach(data.data, function(friend) {
-
-                                d.children = (friend.screen_name);                               
-
+                                d.children.push({"name": friend.screen_name, "children":[]});
                             });
                         })
-
                    // d.children = d._children;
-                    d._children = null;
-                }
+                   // d._children = null;
+               // }
                 update(d);
+               // buildTree(treeJSON);
             }
             };
     });
