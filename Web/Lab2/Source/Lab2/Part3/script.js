@@ -101,18 +101,19 @@ var app = angular.module('twitterApp', [])
         // }
 
         $scope.getFriends = function(screenName) {
+
             var req = $http.get('http://127.0.0.1:8081/getFriends/' + screenName)
                 .then(function (data) {
                     $scope.friendsList = data.data;
                     var tree = getFriendTree(data.data, screenName);
                     buildTree(tree);
-                })
+                    })
         };
 
         var getFriendTree = function(arr, root) {
             var jsonTree = { "name" : root, "children" : [] };
             angular.forEach(arr, function(friend) {
-                jsonTree.children.push({"name": friend.screen_name });
+                jsonTree.children.push({"name": friend.screen_name, "children":[] });
             });
             return jsonTree;
         };
@@ -137,6 +138,7 @@ var app = angular.module('twitterApp', [])
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
             d3.json(treeJSON, function(error) {
                 if (error) throw error;
@@ -244,20 +246,57 @@ var app = angular.module('twitterApp', [])
                     d.x0 = d.x;
                     d.y0 = d.y;
                 });
+
+               var newTree = getFriendTree(treeJSON,source);
+
             }
 
             // Toggle children on click.
             function click(d) {
+                    // var req = $http.get('http://127.0.0.1:8081/getFriends/' + screenName)
+                    //     .then(function (data) {
+                    //         $scope.friendsList = data.data;})
+                    //
+                    // d3.json("http://xxxx:2222/getChildNodes", function(error,response) {
+                    //     response.children.forEach(function(child){
+                    //         if (!tree.nodes(d)[0]._children){
+                    //             tree.nodes(d)[0]._children = [];
+                    //         }
+                    //         child.x = d.x0;
+                    //         child.y = d.y0;
+                    //         tree.nodes(d)[0]._children.push(child);
+                    //     });
+                    //     if (d.children) {
+                    //         d._children = d.children;
+                    //         d.children = null;
+                    //     }
+                    //     else {
+                    //         d.children = d._children;
+                    //         d._children = null;
+                    //     }
+                    //     update(d);
+                    // });
+
                 if (d.children) {
                     d._children = d.children;
                     d.children = null;
                 } else {
-                    d.children = d._children;
+
+                    var req1 = $http.get('http://127.0.0.1:8081/getFriends/' + d.name)
+                        .then(function (data) {
+                            $scope.friendsListNew = data.data;
+                            var i = 0;
+                            angular.forEach(data.data, function(friend) {
+
+                                d.children = (friend.screen_name);                               
+
+                            });
+                        })
+
+                   // d.children = d._children;
                     d._children = null;
                 }
                 update(d);
             }
-        };
-
-
+            };
     });
