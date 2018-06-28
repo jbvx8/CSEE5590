@@ -24,9 +24,9 @@
         <input type="text" class="form-control" ng-model="screenName" placeholder="Enter user name">
         <button class="btn btn-light" ng-click="getFriends(screenName)">Get Friends</button>
     </form>
-    <ul>
-        <li ng-repeat="friend in friendsList">{{friend.screen_name}}</li>
-    </ul>
+    <!--<ul>-->
+        <!--<li ng-repeat="friend in friendsList">{{friend.screen_name}}</li>-->
+    <!--</ul>-->
 </div>
 
 
@@ -37,6 +37,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <!-- AngularJS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="../config/tokens.js"></script>
 <script src="twitter.js"></script>
 <script src="script.js"></script>
