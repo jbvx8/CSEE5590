@@ -13,7 +13,6 @@ app.use(cors());
 app.get('/getFriends/:screenName', function (req, res) {
     client.get('friends/list', { screen_name: req.params.screenName }, function(error, list, response) {
         if (error) throw error;
-
         res.send(JSON.stringify(list.users));
     });
 });

@@ -253,49 +253,18 @@ var app = angular.module('twitterApp', [])
 
             // Toggle children on click.
             function click(d) {
-                    // var req = $http.get('http://127.0.0.1:8081/getFriends/' + screenName)
-                    //     .then(function (data) {
-                    //         $scope.friendsList = data.data;})
-                    //
-                    // d3.json("http://xxxx:2222/getChildNodes", function(error,response) {
-                    //     response.children.forEach(function(child){
-                    //         if (!tree.nodes(d)[0]._children){
-                    //             tree.nodes(d)[0]._children = [];
-                    //         }
-                    //         child.x = d.x0;
-                    //         child.y = d.y0;
-                    //         tree.nodes(d)[0]._children.push(child);
-                    //     });
-                    //     if (d.children) {
-                    //         d._children = d.children;
-                    //         d.children = null;
-                    //     }
-                    //     else {
-                    //         d.children = d._children;
-                    //         d._children = null;
-                    //     }
-                    //     update(d);
-                    // });
-
-                // if (d.children) {
-                //     d._children = d.children;
-                //     d.children = null;
-                //     //update(d);
-                // } else {
 
                     var req1 = $http.get('http://127.0.0.1:8081/getFriends/' + d.name)
                         .then(function (data) {
                             $scope.friendsListNew = data.data;
                             d.children = [];
                             angular.forEach(data.data, function(friend) {
-                                d.children.push({"name": friend.screen_name, "children":[]});
+                                d.children.push({"name": friend.screen_name});
                             });
+                            update(d);
                         })
-                   // d.children = d._children;
-                   // d._children = null;
-               // }
-                update(d);
-               // buildTree(treeJSON);
+
+
             }
             };
     });
