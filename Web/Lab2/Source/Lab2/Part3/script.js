@@ -101,12 +101,13 @@ var app = angular.module('twitterApp', [])
         // }
 
         $scope.getFriends = function(screenName) {
+
             var req = $http.get('http://127.0.0.1:8081/getFriends/' + screenName)
                 .then(function (data) {
                     $scope.friendsList = data.data;
                     var tree = getFriendTree(data.data, screenName);
                     buildTree(tree);
-                })
+                    })
         };
 
         var getFriendTree = function(arr, root) {
@@ -137,6 +138,7 @@ var app = angular.module('twitterApp', [])
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
             d3.json(treeJSON, function(error) {
                 if (error) throw error;
@@ -244,20 +246,25 @@ var app = angular.module('twitterApp', [])
                     d.x0 = d.x;
                     d.y0 = d.y;
                 });
+
+               var newTree = getFriendTree(treeJSON,source);
+
             }
 
             // Toggle children on click.
             function click(d) {
-                if (d.children) {
-                    d._children = d.children;
-                    d.children = null;
-                } else {
-                    d.children = d._children;
-                    d._children = null;
-                }
-                update(d);
+
+                    var req1 = $http.get('http://127.0.0.1:8081/getFriends/' + d.name)
+                        .then(function (data) {
+                            $scope.friendsListNew = data.data;
+                            d.children = [];
+                            angular.forEach(data.data, function(friend) {
+                                d.children.push({"name": friend.screen_name});
+                            });
+                            update(d);
+                        })
+
+
             }
-        };
-
-
+            };
     });
