@@ -103,7 +103,7 @@ var app = angular.module('twitterApp', [])
         $scope.getFriends = function(screenName) {
             var req = $http.get('http://127.0.0.1:8081/getFriends/' + screenName)
                 .then(function (data) {
-                    $scope.friendsList = data;
+                    $scope.friendsList = data.data;
                     console.log(data);
                 })
         }

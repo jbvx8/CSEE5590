@@ -74,3 +74,4 @@ Web/Lab2/Source/Lab2/config/tokens.js
 node_modules/
 Web/Lab2/package-lock.json
 Web/Lab2/package-lock.json
+*.xml___jb_tmp___
