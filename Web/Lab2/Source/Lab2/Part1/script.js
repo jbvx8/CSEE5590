@@ -12,7 +12,7 @@ angular.module('youTubeApp', [])
         $scope.getResults = function () {
             var query = document.getElementById("query").value;
             var key = "AIzaSyC-OZ3iu8r3p6SfBwr3H120QUXxR0MXarQ";
-            var baseUrl = "https://www.googleapis.com/youtube/v3/search"
+            var baseUrl = "https://www.googleapis.com/youtube/v3/search";
             if (query != null && query != "") {
                 var url = baseUrl +
                     "?key=" + key +
@@ -33,6 +33,4 @@ angular.module('youTubeApp', [])
         $scope.getVidUrl = function (id) {
             return "https://www.youtube.com/embed/" + id;
         }
-
-
     });

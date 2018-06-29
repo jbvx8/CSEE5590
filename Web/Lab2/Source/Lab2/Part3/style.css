@@ -1,14 +1,15 @@
 .container {
     padding-top: 50px;
 }
+
 #logo {
-    height: 200px;
+    height: 100px;
     width: auto;
 }
+
 .node {
     cursor: pointer;
 }
-
 
 .node circle {
     fill: #fff;
@@ -25,3 +26,4 @@
     stroke: #ccc;
     stroke-width: 1.5px;
 }
+
