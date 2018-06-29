@@ -27,7 +27,6 @@ app.factory('$tictactoe', ['$timeout', function($timeout) {
         this.mark = function(row_index, column_index) {
 
             var self = this;
-
             if(self.data[row_index + '' + column_index]) {
                 return;
             }
@@ -52,42 +51,30 @@ app.factory('$tictactoe', ['$timeout', function($timeout) {
                 CountHorizontal = 0,
                 CountLeftRight = 0,
                 CountRightLeft = 0;
-
             for (var i = 0; i < this.grid_size; i++) {
-
                 CountVertical = 0;
                 CountHorizontal = 0;
-
                 for (var j = 0; j < this.grid_size; j++) {
-
                     if (this.data[i + '' + j] == mark) {
                         CountHorizontal++;
                     }
-
                     if (this.data[j + '' + i] == mark) {
                         CountVertical++;
                     }
-
                 }
-
                 if (this.data[i + '' + i] == mark) {
                     CountLeftRight++;
                 }
-
                 if (this.data[(this.grid_size - 1 - i) + '' + i] == mark) {
                     CountRightLeft++;
                 }
-
                 if (CountHorizontal == this.grid_size || CountVertical == this.grid_size) {
                     return true;
                 }
-
             }
-
             if(CountLeftRight == this.grid_size || CountRightLeft == this.grid_size) {
                 return true;
             }
-
             return false;
         };
 
