@@ -11,7 +11,7 @@ var client = new Twitter({
 
 app.use(cors());
 app.get('/getFriends/:screenName', function (req, res) {
-    client.get('friends/list', { screen_name: req.params.screenName }, function(error, list, response) {
+    client.get('friends/list', { screen_name: req.params.screenName, count: 10 }, function(error, list, response) {
         if (error) throw error;
         res.send(JSON.stringify(list.users));
     });
