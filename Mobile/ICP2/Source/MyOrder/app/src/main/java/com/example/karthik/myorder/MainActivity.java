@@ -25,13 +25,6 @@ public class MainActivity extends AppCompatActivity {
     final double TOPPING_PRICE_REG = .5;
     final int TOPPING_PRICE_PREM = 1;
 
-    double TOTAL_PRICE = 0;
-    boolean ONIONS = false;
-    boolean PEPPERS = false;
-    boolean SAUSAGE = false;
-    boolean PEPPERONI = false;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,21 +36,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
-       /* Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:47.6,-122.3"));
-        if (intent.resolveActivity(getPackageManager()) !=null){
-            startActivity(intent);
-        }*/
-
 //        get user input
         EditText userInputNameView = (EditText) findViewById(R.id.user_input);
         String userInputName = userInputNameView.getText().toString();
-//        check if whipped cream is selected
-//        CheckBox whippedCream = (CheckBox) findViewById(R.id.whipped_cream_checked);
-//        boolean hasWhippedCream = whippedCream.isChecked();
-        //        check if chocolate is selected
-//        CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate_checked);
-//        boolean hasChocolate = chocolate.isChecked();
 
         CheckBox onions = (CheckBox) findViewById(R.id.onions_checked);
         boolean hasOnions = onions.isChecked();
@@ -126,22 +107,16 @@ public class MainActivity extends AppCompatActivity {
         int basePrice = PIZZA_PRICE;
         if (hasOnions) {
             basePrice += TOPPING_PRICE_REG;
-            ONIONS = true;
         }
         if (hasPeppers) {
             basePrice += TOPPING_PRICE_REG;
-            PEPPERS = true;
         }
         if (hasSausage) {
             basePrice += TOPPING_PRICE_PREM;
-            SAUSAGE = true;
         }
         if (hasPepperoni) {
             basePrice += TOPPING_PRICE_PREM;
-            PEPPERONI = true;
         }
-
-        TOTAL_PRICE = quantity * basePrice;
         return quantity * basePrice;
 
     }
