@@ -143,3 +143,7 @@ node_modules/
 Web/Lab2/package-lock.json
 Web/Lab2/package-lock.json
 *.xml___jb_tmp___
+*.ser
+*.ser
+Mobile/ICP1/Source/ICP1/.idea/caches/build_file_checksums.ser
+*.gradle
