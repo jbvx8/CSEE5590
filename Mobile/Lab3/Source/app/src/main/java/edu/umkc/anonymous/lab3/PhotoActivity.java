@@ -58,4 +58,10 @@ public class PhotoActivity extends Activity {
             analyze.setVisibility(View.VISIBLE);
         }
     }
+
+    public void redirectToAnalyze(View v) {
+        Intent redirect = new Intent(PhotoActivity.this, AnalyzeActivity.class);
+        redirect.putExtra("Image", photo);
+        startActivity(redirect);
+    }
 }
