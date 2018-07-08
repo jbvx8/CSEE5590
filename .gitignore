@@ -130,13 +130,10 @@ Web/Lab1/.idea/modules.xml
 Web/Lab1/.idea/workspace.xml
 Web/Lab1/.idea/workspace.xml___jb_tmp___
 *.iml
-*.xml
-*.xml
 Web/ICP4/Source/Web_Lesson4_SourceCode/.idea/workspace.xml
 
 Web/ICP4/Source/Web_Lesson4_SourceCode/.idea/workspace.xml
 Web/ICP4/Source/Web_Lesson4_SourceCode/.idea/workspace.xml
-*.xml
 Web/Lab2/Source/Lab2/config/tokens.js
 
 node_modules/
@@ -144,7 +141,7 @@ Web/Lab2/package-lock.json
 Web/Lab2/package-lock.json
 *.xml___jb_tmp___
 *.ser
-*.ser
+*.idea
 Mobile/ICP1/Source/ICP1/.idea/caches/build_file_checksums.ser
 *.gradle
 Mobile/ICP1/Source/ICP1/.idea/caches/build_file_checksums.ser
