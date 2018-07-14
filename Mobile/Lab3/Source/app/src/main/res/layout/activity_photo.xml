@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/sky"
     tools:context=".PhotoActivity">
 
     <ImageView
@@ -21,7 +22,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="95dp"
-        android:text="TAKE PHOTO" />
+        android:text="TAKE PHOTO"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
 
     <Button
         android:id="@+id/btn_photo_ok"

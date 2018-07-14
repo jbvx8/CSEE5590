@@ -28,12 +28,15 @@ public class PhotoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.CAMERA},
+                    MY_PERMISSIONS_REQUEST_CAMERA);
+        }
+
         Button takePhoto = (Button) findViewById(R.id.btn_take_photo);
-//        Button analyze = (Button) findViewById(R.id.btn_photo_ok);
         userPhoto = (ImageView)  findViewById(R.id.user_photo);
-//        if (userPhoto.getDrawable().equals(true)) {
-//            analyze.setVisibility(View.VISIBLE);
-//        }
+
         takePhoto.setOnClickListener(new View.OnClickListener() {
 
 

@@ -101,6 +101,11 @@ public class AnalyzeActivity extends Activity {
         scoreText.setText(scoreResult);
     }
 
+    public void redirectToHomePage(View v) {
+        Intent redirect = new Intent(AnalyzeActivity.this, MainActivity.class);
+        startActivity(redirect);
+    }
+
     private class GetResultsTask extends AsyncTask<Bitmap, Void, List<EntityAnnotation>> {
         private ProgressDialog progress = new ProgressDialog(AnalyzeActivity.this);
 
@@ -126,10 +131,5 @@ public class AnalyzeActivity extends Activity {
             }
             printResults(labels);
         }
-    }
-
-    public void redirectToHomePage(View v) {
-        Intent redirect = new Intent(AnalyzeActivity.this, MainActivity.class);
-        startActivity(redirect);
     }
 }

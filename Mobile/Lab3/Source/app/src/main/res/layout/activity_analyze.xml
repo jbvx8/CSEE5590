@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/sky"
     tools:context=".AnalyzeActivity">
 
     <TextView
@@ -56,5 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="OK"
-        android:onClick="redirectToHomePage"/>
+        android:onClick="redirectToHomePage"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
 </RelativeLayout>

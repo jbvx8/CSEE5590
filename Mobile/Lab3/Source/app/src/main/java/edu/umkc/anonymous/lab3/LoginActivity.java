@@ -2,7 +2,6 @@ package edu.umkc.anonymous.lab3;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -24,6 +23,8 @@ public class LoginActivity extends Activity {
         String password = passwordCtrl.getText().toString();
 
         boolean validationFlag = false;
+
+
         // Verify username and password not empty
         if(!userName.isEmpty() && !password.isEmpty()) {
             if(userName.equals("Admin") && password.equals("admin")) {
@@ -37,6 +38,11 @@ public class LoginActivity extends Activity {
         else {
             redirectToHomePage(v);
         }
+    }
+
+    public void signup (View v){
+        Intent intent = new Intent(this,SignupActivity.class);
+        startActivity(intent);
     }
 
     public void redirectToHomePage(View v) {

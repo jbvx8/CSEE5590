@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="0dp"
+    android:background="@mipmap/sky"
     tools:context=".LoginActivity">
 
     <EditText
@@ -15,10 +17,12 @@
         android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="Username/Email"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:background="@drawable/rounded_edittext"/>
 
     <EditText
         android:id="@+id/editTextPassword"
+        android:background="@drawable/rounded_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,9 +36,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editTextUser"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
         android:text="Login"
         android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
@@ -44,8 +50,29 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editTextUser"
         android:layout_centerVertical="true"
-        android:text="Sign In"
-        android:onClick="checkCredentials" />
+        android:text="Login"
+        android:onClick="checkCredentials"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editTextUser"
+        android:layout_centerVertical="true"
+        android:text="Sign Up"
+        android:onClick="signup"
+        android:theme="@style/MyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/fb_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="390dp"
+        android:layout_marginLeft="110dp" />
 
     <TextView
         android:id="@+id/lbl_Error"
@@ -53,8 +80,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="160dp"
-        android:text="Credentials invalid.  Try again."
+        android:layout_marginBottom="90dp"
+        android:text="Invalid username or password"
+        android:textColor="#ff0000"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:visibility="invisible" />
 

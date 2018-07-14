@@ -2,4 +2,7 @@
     <string name="app_name">Lab3</string>
     <string name="label">Label</string>
     <string name="score">Score</string>
+    <string name="facebook_app_id">2170589013172990</string>
+    <string name="fb_login_protocol_scheme">fb2170589013172990</string>
+    <string name="action_settings">Settings</string>
 </resources>
