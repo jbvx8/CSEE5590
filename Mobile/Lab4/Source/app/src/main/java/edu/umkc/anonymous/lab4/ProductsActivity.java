@@ -105,8 +105,10 @@ public class ProductsActivity extends AppCompatActivity {
                 JSONObject store = stores.getJSONObject(i);
                 String productURL = store.getString("url");
                 JSONArray offers = store.getJSONArray("latestoffers");
-                JSONObject offer = offers.getJSONObject(0);
-                String price = offer.getString("price");
+                if (offers.length() > 0) {
+                    JSONObject offer = offers.getJSONObject(0);
+                    String price = offer.getString("price");
+                }
             }
         } else {
             String message = results.getString("message");
