@@ -80,6 +80,8 @@ public class ProductsActivity extends AppCompatActivity {
 //                progress.dismiss();
 //            }
             printResults(results);
+            ProductInfo p = new ProductInfo();
+            p.getData();
         }
     }
 
