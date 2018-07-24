@@ -74,13 +74,14 @@ public class ProductsActivity extends AppCompatActivity {
 //            }
 
             //printResults(results);
-//            ProductInfo p = new ProductInfo();
-//            p.getData();
+
 
             ProductInfo info = createProductInfo(results);
             FireBaseDB fb = new FireBaseDB();
             fb.pushToDB(info);
             displayResults(info);
+            fb.readFromDb("-LI9_vooJNKkmt6qw5qy");
+            fb.deleteFromDB("-LI9_vooJNKkmt6qw5qy");
 
         }
     }
