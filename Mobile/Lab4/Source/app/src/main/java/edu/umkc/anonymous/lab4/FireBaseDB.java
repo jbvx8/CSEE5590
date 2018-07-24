@@ -15,12 +15,13 @@ public class FireBaseDB {
     FireBaseDB() {
     }
 
-    public void pushToDB (String product_Name, String product_Price, String product_UPC, String image_url, String size, String manufacturer, String features, String siteName, String discription) {
+    public void pushToDB (ProductInfo productInfo) {
+        //String product_Name, String product_Price, String product_UPC, String image_url, String size, String manufacturer, String features, String siteName, String discription
         mDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference("products");
         String productID = mDB.push().getKey();
-        ProductInfo product = new ProductInfo(product_Name,product_Price,product_UPC,image_url,size,manufacturer,features,siteName,discription);
-        mDB.child(productID).setValue(product);
+        //ProductInfo product = new ProductInfo(product_Name,product_Price,product_UPC,image_url,size,manufacturer,features,siteName,discription);
+        mDB.child(productID).setValue(productInfo);
     }
 
     public String readFromDb(String productID){

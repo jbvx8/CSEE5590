@@ -72,14 +72,16 @@ public class ProductsActivity extends AppCompatActivity {
 //            if (progress.isShowing()) {
 //                progress.dismiss();
 //            }
-<<<<<<< HEAD
-            printResults(results);
-            ProductInfo p = new ProductInfo();
-            p.getData();
-=======
+
+            //printResults(results);
+//            ProductInfo p = new ProductInfo();
+//            p.getData();
+
             ProductInfo info = createProductInfo(results);
+            FireBaseDB fb = new FireBaseDB();
+            fb.pushToDB(info);
             displayResults(info);
->>>>>>> 47e31946b1bbee2f4ce5c7a97b8cc7f65096766c
+
         }
     }
 
