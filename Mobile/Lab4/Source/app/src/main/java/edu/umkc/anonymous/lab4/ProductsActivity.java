@@ -1,20 +1,30 @@
 package edu.umkc.anonymous.lab4;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.semantics3.api.Products;
+import com.squareup.picasso.Picasso;
 
 import org.json.semantics3.JSONArray;
 import org.json.semantics3.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -136,7 +146,72 @@ public class ProductsActivity extends AppCompatActivity {
         return null;
     }
 
-    private void displayResults(ProductInfo product) {
+    private void displayResults(final ProductInfo product) {
+        String imageURL = product.getProductImageURL();
+        String manufacturer = product.getProductManufacturer();
+        String upc = product.getProductUPC();
+        final String storeURL = product.getSiteProductURL();
+        String storeName = product.getSiteName();
+        String price = product.getProductPrice();
+        String description = product.getProductDescription();
+        Map<String, String> features = product.getProductFeatures();
 
+        ImageView imageView = findViewById(R.id.productImage);
+        TextView productText = findViewById(R.id.productText);
+        TextView linkText = findViewById(R.id.linkText);
+        TextView featureText = findViewById(R.id.linkText);
+        Button button = findViewById(R.id.addButton);
+
+        // library that loads the image from the image URL
+        Picasso.get()
+                .load(imageURL)
+                .resize(500, 500)
+                .placeholder(R.mipmap.ic_launcher_round)
+                .into(imageView);
+
+        productText.append(Html.fromHtml("<b>" + product.getProductName() + "</b><br>"));
+        if (upc != "") {
+            productText.append("upc: " + upc + "\n");
+        }
+        if (manufacturer != "") {
+            productText.append("manufacturer: " + manufacturer + "\n");
+        }
+        if (description != "") {
+            productText.append(description);
+        }
+
+        if (storeName != "") {
+            linkText.append("find at " + storeName + "\n");
+        }
+        if (storeURL != "") {
+            linkText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(storeURL));
+                    startActivity(intent);
+                }
+            });
+        }
+        if (price != "") {
+            linkText.append("for " + price);
+        }
+
+
+        if (features != null) {
+            for (Map.Entry<String, String> entry : features.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                featureText.append(key + ": " + value + "\n");
+            }
+        }
+        button.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FireBaseDB db = new FireBaseDB();
+                db.pushToDB(product);
+                //TODO: redirect to shopping list
+            }
+        });
     }
 }
