@@ -1,28 +1,22 @@
 package edu.umkc.anonymous.lab4;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.semantics3.api.Products;
 
-
 import org.json.semantics3.JSONArray;
 import org.json.semantics3.JSONObject;
-import org.json.semantics3.JSONString;
 
-import java.io.Console;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -71,7 +65,6 @@ public class ProductsActivity extends AppCompatActivity {
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
-
             return results;
         }
 
@@ -79,42 +72,69 @@ public class ProductsActivity extends AppCompatActivity {
 //            if (progress.isShowing()) {
 //                progress.dismiss();
 //            }
+<<<<<<< HEAD
             printResults(results);
             ProductInfo p = new ProductInfo();
             p.getData();
+=======
+            ProductInfo info = createProductInfo(results);
+            displayResults(info);
+>>>>>>> 47e31946b1bbee2f4ce5c7a97b8cc7f65096766c
         }
     }
 
-    private void printResults(JSONObject results) {
-        GridLayout gridLayout = new GridLayout(getApplicationContext());
-        gridLayout.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
-
+    private ProductInfo createProductInfo(JSONObject results) {
         JSONArray products = results.getJSONArray("results");
-        gridLayout.setColumnCount(1);
-        TextView nameText;
-        TextView siteText;
-        TextView priceText;
-        ImageView imageView;
         if (products.length() > 0) {
-            JSONObject product = products.getJSONObject(0);
-            String productName = product.getString("name");
-            JSONArray images = product.getJSONArray("images");
-            String imageURL = images.get(0).toString();
-            JSONArray stores = product.getJSONArray("sitedetails");
-            gridLayout.setRowCount(stores.length());
+            String price = "", productName = "", upc = "", imageURL = "", weight = "",
+                    manufacturer = "", description = "", storeURL= "", storeName = "";
+            Map<String, String> featureMap = null;
 
-            for (int i = 0; i < stores.length(); i++) {
-                JSONObject store = stores.getJSONObject(i);
-                String productURL = store.getString("url");
-                JSONArray offers = store.getJSONArray("latestoffers");
-                if (offers.length() > 0) {
-                    JSONObject offer = offers.getJSONObject(0);
-                    String price = offer.getString("price");
+            JSONObject product = products.getJSONObject(0);
+            if (product.has("name")) { productName = product.getString("name"); }
+            if (product.has("manufacturer")) { manufacturer = product.getString("manufacturer"); }
+            if (product.has("upc")) { upc = product.getString("upc"); }
+            if (product.has("description")) { description = product.getString("description"); }
+            if (product.has("weight")) { weight = product.getString("weight"); }
+            if (product.has("features")) {
+                String features = product.getJSONObject("features").toString();
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    featureMap = mapper.readValue(features, HashMap.class);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } else {
-            String message = results.getString("message");
+
+            if (product.has("images")) {
+                JSONArray images = product.getJSONArray("images");
+                imageURL = images.get(0).toString();
+            }
+
+            if (product.has("sitedetails")) {
+                JSONArray stores = product.getJSONArray("sitedetails");
+                if (stores.length() > 0) {
+                    JSONObject store = stores.getJSONObject(0);
+                    if (store.has("name")) { storeName = store.getString("name"); }
+                    if (store.has("url")) { storeURL = store.getString("url"); }
+                    if (store.has("latestoffers")) {
+                        JSONArray offers = store.getJSONArray("latestoffers");
+                        if (offers.length() > 0) {
+                            JSONObject offer = offers.getJSONObject(0);
+                            price = offer.getString("price");
+                        }
+                    }
+                }
+            }
+
+            ProductInfo productInfo = new ProductInfo(productName, price, upc, imageURL,
+                    weight, manufacturer, description, featureMap, storeName, storeURL);
+            return productInfo;
         }
+        return null;
+    }
+
+    private void displayResults(ProductInfo product) {
 
     }
 }
