@@ -3,12 +3,15 @@ package com.example.rohithkumar.cameramapsapplication;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.provider.CalendarContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,4 +45,11 @@ public class MainActivity extends AppCompatActivity {
         Intent redirect = new Intent(MainActivity.this, PressureActivity.class);
         startActivity(redirect);
     }
+
+    public void onCalendarClick(View v) {
+        Intent redirect = new Intent(MainActivity.this, CalendarActivity.class);
+        startActivity(redirect);
+    }
+
+
 }

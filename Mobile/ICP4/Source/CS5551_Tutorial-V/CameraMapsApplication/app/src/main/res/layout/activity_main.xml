@@ -12,19 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="55dp"
         android:onClick="onPhotoClick"
-        android:text="Take photo"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="111dp" />
+        android:text="Take photo" />
 
     <Button
         android:id="@+id/main_btn_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_btn_photo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
+        android:layout_below="@id/main_btn_photo"
+        android:layout_marginTop="55dp"
         android:onClick="onLocationClick"
         android:text="Display Location"></Button>
 
@@ -32,10 +30,21 @@
         android:id="@+id/main_btn_pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:layout_below="@id/main_btn_record"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/main_btn_record"
+        android:layout_marginTop="55dp"
         android:onClick="onPressureClick"
         android:text="GET PRESSURE" />
+
+    <Button
+        android:id="@+id/main_btn_calendar"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_btn_pressure"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:onClick="onCalendarClick"
+        android:text="Calendar" />
 
 </RelativeLayout>
