@@ -22,10 +22,10 @@ public class ProductInfo {
 
     public ProductInfo(){
     }
-
+//
     public ProductInfo(String productName, String productPrice, String productUPC,
                        String productImageURL, String productWeight, String productManufacturer,
-                       String productDescription, Map<String, String> productFeatures,
+                       String productDescription,Map<String, String> productFeatures,
                        String siteName, String siteProductURL) {
         this.productName = productName;
         this.productPrice = productPrice;

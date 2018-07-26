@@ -56,8 +56,8 @@ public class FireBaseDB {
         return productread;
     }
 
-    public void deleteFromDB(String productID){
+    public void deleteFromDB(String productName){
         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference("products");
-        mDB.child(productID).removeValue();
+        mDB.child(productName).removeValue();
     }
 }

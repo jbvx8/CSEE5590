@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.semantics3.api.Products;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +30,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +40,7 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 
 public class ProductsActivity extends AppCompatActivity {
 
+    ArrayList<String> r = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,13 +94,44 @@ public class ProductsActivity extends AppCompatActivity {
 
 
             ProductInfo info = createProductInfo(results);
-            FireBaseDB fb = new FireBaseDB();
-            fb.pushToDB(info);
-            displayResults(info);
-            fb.readFromDb("-LI9_vooJNKkmt6qw5qy");
-            fb.deleteFromDB("-LI9_vooJNKkmt6qw5qy");
 
+            displayResults(info);
+            //shList();
         }
+    }
+    public void shList(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("products");
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+                        if(dataSnapshot != null) {
+                            collectPhoneNumbers((Map<String, Object>) dataSnapshot.getValue());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+
+                });
+
+    }
+    private void collectPhoneNumbers(Map<String,Object> users) {
+
+
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : users.entrySet()){
+
+            //Get user map
+            Map singleUser = (Map) entry.getValue();
+            //Get phone field and append to list
+            r.add((String) singleUser.get("productName"));
+        }
+
+        System.out.println(r.toString());
     }
 
     private ProductInfo createProductInfo(JSONObject results) {
@@ -211,6 +249,12 @@ public class ProductsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FireBaseDB db = new FireBaseDB();
                 db.pushToDB(product);
+                //Intent intent = new Intent(view.getContext(), ShoppingListActivity.class);
+               // startActivity(intent);
+                shList();
+                Intent intent = new Intent(getBaseContext(), ShoppingListActivity.class);
+                intent.putExtra("EXTRA_SESSION_ID", r);
+                startActivity(intent);
                 //TODO: redirect to shopping list
             }
         });

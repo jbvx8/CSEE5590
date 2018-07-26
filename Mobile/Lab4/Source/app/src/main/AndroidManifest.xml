@@ -21,7 +21,8 @@
         <activity
             android:name=".BarcodeCaptureActivity"
             android:label="Read Barcode" />
-        <activity android:name=".ProductsActivity"></activity>
+        <activity android:name=".ProductsActivity" />
+        <activity android:name=".ShoppingListActivity"></activity>
     </application>
 
 </manifest>
