@@ -105,26 +105,3 @@ public class ShoppingListActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
-
-//    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//
-//    DatabaseReference myRef = database.getReference("products");
-//
-//         myRef.addValueEventListener(new ValueEventListener(){
-//        @Override
-//        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//            for (DataSnapshot chidSnap : dataSnapshot.getChildren()) {
-//                dataModels.add(new ProductInfo(chidSnap.child("productName").toString(), chidSnap.child("productPrice").toString(), chidSnap.child("productUPC").toString(),chidSnap.child("productImageURL").toString(),chidSnap.child("productWeight").toString(),
-//                        chidSnap.child("productManufacturer").toString(),chidSnap.child("productDescription").toString(),temp,chidSnap.child("siteName").toString(),chidSnap.child("siteProductURL").toString()));
-//                //Log.v("tmz",""+ chidSnap.getKey()); //displays the key for the node
-//                //Log.v("tmz",""+ chidSnap.child("market_name").getValue());   //gives the value for given keyname
-//            }
-//
-//        }
-//
-//        @Override
-//        public void onCancelled(DatabaseError databaseError) {
-//
-//        }
-//    });
