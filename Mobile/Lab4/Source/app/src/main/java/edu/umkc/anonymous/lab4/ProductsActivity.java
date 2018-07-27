@@ -30,8 +30,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -139,7 +141,7 @@ public class ProductsActivity extends AppCompatActivity {
         if (products.length() > 0) {
             String price = "", productName = "", upc = "", imageURL = "", weight = "",
                     manufacturer = "", description = "", storeURL= "", storeName = "";
-            Map<String, String> featureMap = null;
+            Map<String, String> featureMap = new HashMap<String, String>(){};
 
             JSONObject product = products.getJSONObject(0);
             if (product.has("name")) { productName = product.getString("name"); }
@@ -151,7 +153,13 @@ public class ProductsActivity extends AppCompatActivity {
                 String features = product.getJSONObject("features").toString();
                 ObjectMapper mapper = new ObjectMapper();
                 try {
-                    featureMap = mapper.readValue(features, HashMap.class);
+                    Map<String, String> map = mapper.readValue(features, HashMap.class);
+                    for (Map.Entry<String, String> entry : map.entrySet()) {
+                        String oldKey = entry.getKey();
+                        String value = entry.getValue();
+                        String newKey = oldKey.replaceAll("[#,@,#,$,%,^,&,*,-,+,=]", "");
+                        featureMap.put(newKey, value);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -255,7 +263,6 @@ public class ProductsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), ShoppingListActivity.class);
                 intent.putExtra("EXTRA_SESSION_ID", r);
                 startActivity(intent);
-                //TODO: redirect to shopping list
             }
         });
     }
