@@ -72,6 +72,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                 adapter.remove(result.remove(position));
                 FireBaseDB fb = new FireBaseDB();
+                //DatabaseReference fb = database.getReference();
                 fb.deleteFromDB(itemValue);
                 return false;
             }

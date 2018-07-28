@@ -43,6 +43,7 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 public class ProductsActivity extends AppCompatActivity {
 
     ArrayList<String> r = new ArrayList<>();
+    int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -257,12 +258,17 @@ public class ProductsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FireBaseDB db = new FireBaseDB();
                 db.pushToDB(product);
+
+
                 //Intent intent = new Intent(view.getContext(), ShoppingListActivity.class);
                // startActivity(intent);
                 shList();
-                Intent intent = new Intent(getBaseContext(), ShoppingListActivity.class);
-                intent.putExtra("EXTRA_SESSION_ID", r);
-                startActivity(intent);
+
+                    Intent intent = new Intent(ProductsActivity.this, ShoppingListActivity.class);
+                    intent.putExtra("EXTRA_SESSION_ID", r);
+                    startActivity(intent);
+                    //shList();
+
             }
         });
     }
